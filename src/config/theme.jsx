@@ -1,20 +1,25 @@
 import { createTheme } from "@mui/material";
-import { indigo } from "@mui/material/colors";
+import { green, grey, indigo} from "@mui/material/colors";
 
 let theme = createTheme({
     palette: {
         primary: {
-            main: indigo[900],
-            normal: indigo['A700'],
+            main: indigo[500],
+            normal: indigo['A700']
         },
         secondary: {
-            main: indigo[50]
+            main: indigo[50],
+            primary:"#03031e",
+            hover:"#1f1f41"
         },
         neutral: {
-            light: indigo[50],
-            medium: indigo[200],
-            normal: indigo[700],
-            main: indigo[900]
+            light: grey[50],
+            medium: grey[200],
+            normal: grey[700],
+            main: grey[900]
+        },
+        green: {
+            main: green[800]
         }
     }
 })

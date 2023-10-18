@@ -1,44 +1,87 @@
-import { useState } from 'react';
+import { Avatar, Box, Typography, useTheme } from "@mui/material";
+import { Menu, MenuItem, Sidebar, useProSidebar } from "react-pro-sidebar";
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import HelpIcon from '@mui/icons-material/Help';
+import CategoryIcon from '@mui/icons-material/Category';
+import profile from "../assets/profile.jpg"
+import InsightsOutlinedIcon from '@mui/icons-material/InsightsOutlined';
+import PeopleOutlineOutlinedIcon from '@mui/icons-material/PeopleOutlineOutlined';
 
-import profile from '../assets/profile.jpg'
-import { BsBox } from 'react-icons/bs'
-import { LuUserSquare2, LuDivideSquare, LuBadgeHelp, LuLayoutDashboard } from 'react-icons/lu'
-import { RiSettingsFill } from 'react-icons/ri'
-import { FaFileInvoice } from 'react-icons/fa'
 const SideNav = () => {
-
-  const [isSidebarOpen, setSidebarOpen] = useState(true);
-
-  const toggleSidebar = () => {
-    setSidebarOpen(!isSidebarOpen);
-  };
+  const { collapsed } = useProSidebar();
+  const theme = useTheme();
 
   return (
-   <div className={`sidebar-container ${isSidebarOpen ? '' : 'collapsed'}`}>
-      <div className="sidebar-header" onClick={toggleSidebar}>
-        <p><RiSettingsFill className='header-icon'/>Dashboard</p>
-      </div>
-      <div className="sidebar-menu">
-        <ul>
-          <li className="active-menu"><LuLayoutDashboard className='icons' />Dashboard</li>
-          <li><BsBox className='icons' /> Products</li>
-          <li><LuUserSquare2 className='icons' /> Customers</li>
-          <li><FaFileInvoice className='icons' /> Income</li>
-          <li><LuDivideSquare className='icons' /> Promote</li>
-          <li><LuBadgeHelp className='icons' /> Help</li>
-        </ul>
-      </div>
-      <div className="sidebar-footer">
-        <div className='footer-card'>
-          <img src={profile} />
-          <div className='footer-details'>
-            <h5>Evano</h5>
-            <span>Project Manager</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
+    <Sidebar
+      style={{ height: "100vh", top: 'auto' }}
+      breakPoint="md"
+      backgroundColor={theme.palette.secondary.primary}
+    >
 
-export default SideNav
+      <Box sx={{ marginTop: 10 }}>
+        <Menu
+          menuItemStyles={{
+            button: ({ active }) => {
+              return {
+                backgroundColor: active ? theme.palette.secondary.hover : undefined,
+                '&:hover': {
+                  backgroundColor: '#1f1f41',
+                },
+              };
+            },
+
+          }}
+        >
+          <MenuItem icon={<DashboardIcon sx={{ color: "#f2f2f2" }} />}>
+            <Typography sx={{ color: "#f2f2f2" }} variant="body2">Dashboard</Typography>
+          </MenuItem>
+          <MenuItem icon={<CategoryIcon sx={{ color: "#f2f2f2" }} />}>
+            <Typography sx={{ color: "#f2f2f2" }} variant="body2">Products</Typography>
+          </MenuItem>
+          <MenuItem icon={<PeopleOutlineOutlinedIcon sx={{ color: "#ffffff" }} />} >
+            <Typography sx={{ color: "#f2f2f2" }} variant="body2">Customer</Typography>
+          </MenuItem>
+          <MenuItem icon={<InsightsOutlinedIcon sx={{ color: "#ffffff" }} />} >
+            <Typography sx={{ color: "#f2f2f2" }} variant="body2">Promote</Typography>
+          </MenuItem>
+          <MenuItem icon={<HelpIcon sx={{ color: "#ffffff" }} />} >
+            <Typography sx={{ color: "#f2f2f2" }} variant="body2">Help</Typography>
+          </MenuItem>
+        </Menu>
+      </Box>
+
+      {!collapsed &&
+        <Box sx={styles.sidebarFooter}>
+          <Avatar src={profile} alt="profile-dp" sx={styles.avatar} />
+          <Box sx={{display:"flex", flexDirection:"column"}}>
+            <Typography variant="body2" sx={{ color: "#f2f2f2", pt: 2 }}>Evano</Typography>
+            <Typography variant="subtitle2" sx={{ color: "#f2f2f2", pt: 2 }}>Project Manager</Typography>
+          </Box>
+        </Box>}
+    </Sidebar>
+  );
+};
+
+export default SideNav;
+
+/**
+ * @type {import("@mui/material").SxProps}
+ */
+const styles = {
+  sidebarFooter: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent:"center",
+    marginTop:36,
+  },
+  avatar: {
+    width: '60px',
+    height: '60px',
+    borderRadius: "50%",
+    mr:3
+  },
+  sidebar: {
+    marginTop: "50px"
+  }
+}
