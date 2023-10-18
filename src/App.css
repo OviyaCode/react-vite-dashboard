@@ -82,7 +82,7 @@
 .sidebar-footer {
     display: flex;
     align-items: center;
-    margin-bottom: calc(100%-20vh);
+    margin-bottom: calc(100% - 20vh);
     overflow: hidden !important;
 }
 
